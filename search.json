@@ -1,0 +1,58 @@
+[
+  {
+    "objectID": "Topicos/SS01Representacao.html#gerador-de-indução-de-dupla-alimentação-dfig",
+    "href": "Topicos/SS01Representacao.html#gerador-de-indução-de-dupla-alimentação-dfig",
+    "title": "Controle MPC-FCS de gerador DFIG",
+    "section": "Gerador de Indução de Dupla Alimentação (DFIG)",
+    "text": "Gerador de Indução de Dupla Alimentação (DFIG)\nTensões (correntes, fluxos) trifásicas em espaço vetorial:\n\\[v_{abc} = \\frac{2}{3}\\begin{bmatrix} v_a, av_b, a^2v_c \\end{bmatrix}\\]\nonde \\(a = e^{j2\\pi/3}\\) é o operador de fase e \\(i = \\sqrt{-1}\\).\nPor Euler, temos que:\n\\[a = \\cos(120^\\circ) + j\\sin(120^\\circ)\\] \\[a^2 = \\cos(240^\\circ) + j\\sin(240^\\circ)\\]"
+  },
+  {
+    "objectID": "Topicos/SS01Representacao.html#referencial-estacionário-alphabeta",
+    "href": "Topicos/SS01Representacao.html#referencial-estacionário-alphabeta",
+    "title": "Controle MPC-FCS de gerador DFIG",
+    "section": "Referencial estacionário \\(\\alpha\\beta\\):",
+    "text": "Referencial estacionário \\(\\alpha\\beta\\):\nProjetando o vetor \\(v_{abc}\\) no referencial estacionário com eitos \\(\\alpha\\) (real) e \\(\\beta\\) (imaginário), têm-se:\n\\[v_{\\alpha\\beta} = [T_{abc}]v_{abc}\\]\nCom a matriz de transformação \\(T_{abc}\\) de Clarke:\n\\[v_{\\alpha\\beta} = \\frac{2}{3}\\begin{bmatrix} 1 & -\\frac{1}{2} & -\\frac{1}{2} \\\\ 0 & \\frac{\\sqrt{3}}{2} & -\\frac{\\sqrt{3}}{2} \\end{bmatrix}\\begin{bmatrix} v_a \\\\ v_b \\\\ v_c \\end{bmatrix}\\]"
+  },
+  {
+    "objectID": "Topicos/SS01Representacao.html#referencial-estacionário-alphabeta-1",
+    "href": "Topicos/SS01Representacao.html#referencial-estacionário-alphabeta-1",
+    "title": "Controle MPC-FCS de gerador DFIG",
+    "section": "Referencial estacionário \\(\\alpha\\beta\\)",
+    "text": "Referencial estacionário \\(\\alpha\\beta\\)\nInvertendo a transformação:\n\\[v_{abc} = [T_{abc}]^{-1}v_{\\alpha\\beta}\\]\nCom a matriz inversa:\n\\[v_{abc} = \\begin{bmatrix} 1 & 0 \\\\ -\\frac{1}{2} & \\frac{\\sqrt{3}}{2} \\\\ -\\frac{1}{2} & -\\frac{\\sqrt{3}}{2} \\end{bmatrix}\\begin{bmatrix} v_\\alpha \\\\ v_\\beta \\end{bmatrix}\\]"
+  },
+  {
+    "objectID": "Topicos/SS01Representacao.html#referencial-síncrono---girante-dq",
+    "href": "Topicos/SS01Representacao.html#referencial-síncrono---girante-dq",
+    "title": "Controle MPC-FCS de gerador DFIG",
+    "section": "Referencial síncrono - girante \\(dq\\)",
+    "text": "Referencial síncrono - girante \\(dq\\)\nO referencial síncrono \\(dq\\) gira com frequência \\(\\omega\\) e é localizado em \\(\\theta = \\omega t\\) do referencial estacionário \\(\\alpha\\beta\\).\nProjetando o vetor \\(v_{\\alpha\\beta}\\) no referencial girante com eitos \\(d\\) (direto) e \\(q\\) (quadratura), têm-se:\n\\[\\begin{bmatrix} v_d \\\\ v_q \\end{bmatrix} = [T_{dq}]v_{\\alpha\\beta}\\] Com a matriz de transformação \\(T_{dq}\\) de Park: \\[\\begin{bmatrix} v_d \\\\ v_q \\end{bmatrix} = \\begin{bmatrix} \\;\\;\\cos(\\theta) & \\sin(\\theta) \\\\ -\\sin(\\theta) & \\cos(\\theta) \\end{bmatrix}\\begin{bmatrix} v_\\alpha \\\\ v_\\beta \\end{bmatrix}\\]"
+  },
+  {
+    "objectID": "Topicos/SS01Representacao.html#referencial-síncrono---girante-dq-1",
+    "href": "Topicos/SS01Representacao.html#referencial-síncrono---girante-dq-1",
+    "title": "Controle MPC-FCS de gerador DFIG",
+    "section": "Referencial síncrono - girante \\(dq\\)",
+    "text": "Referencial síncrono - girante \\(dq\\)\nInvertendo a transformação: \\[v_{\\alpha\\beta} = [T_{dq}]^{-1}\\begin{bmatrix} v_d \\\\ v_q \\end{bmatrix}\\] Com a matriz inversa: \\[v_{\\alpha\\beta} = \\begin{bmatrix} \\;\\;\\cos(\\theta) & -\\sin(\\theta) \\\\ \\sin(\\theta) & \\;\\;\\cos(\\theta) \\end{bmatrix}\\begin{bmatrix} v_d \\\\ v_q \\end{bmatrix}\\]"
+  },
+  {
+    "objectID": "Topicos/SS01Representacao.html#referencial-síncrono---girante-dq-2",
+    "href": "Topicos/SS01Representacao.html#referencial-síncrono---girante-dq-2",
+    "title": "Controle MPC-FCS de gerador DFIG",
+    "section": "Referencial síncrono - girante \\(dq\\)",
+    "text": "Referencial síncrono - girante \\(dq\\)\nPode-se também transformar diretamente de \\(abc\\) para \\(dq\\):\n\\[\\begin{bmatrix} v_d \\\\ v_q \\end{bmatrix} = [T_{dq}][T_{abc}]v_{abc}\\]\nOu de \\(dq\\) para \\(abc\\):\n\\[v_{abc} = [T_{abc}]^{-1}[T_{dq}]^{-1}\\begin{bmatrix} v_d \\\\ v_q \\end{bmatrix}\\]"
+  },
+  {
+    "objectID": "Topicos/SS01Representacao.html#referencial-síncrono---girante-dq-3",
+    "href": "Topicos/SS01Representacao.html#referencial-síncrono---girante-dq-3",
+    "title": "Controle MPC-FCS de gerador DFIG",
+    "section": "Referencial síncrono - girante \\(dq\\)",
+    "text": "Referencial síncrono - girante \\(dq\\)\nEm notação compacta, as transformações podem ser escritas como:\n\\[v_{dq} =  v_d + jv_q = v_{\\alpha\\beta}e^{-j\\theta}\\]"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Controle por Espaço de Estados",
+    "section": "",
+    "text": "Espaço de estados:\nRepresentação em Espaço de Estados"
+  }
+]
