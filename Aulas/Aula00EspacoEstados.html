@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="Prof.&nbsp;Dr.&nbsp;Raphael Teixeira">
-  <title>Controle DFIG – Controle MPC-FCS de gerador DFIG</title>
+  <title>Espaço de Estados</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -29,7 +29,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-f57fb5761780f5b5a3c5a5ac0b689917.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -126,9 +126,9 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Controle MPC-FCS de gerador DFIG</h1>
-  <p class="subtitle">Estratégia adaptativa de modelo ARX preditivo por RST</p>
+<section class="quarto-title-block center">
+  <h1 class="title">Espaço de Estados</h1>
+  <p class="subtitle">Sistemas de Controle II</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -142,49 +142,27 @@ Prof.&nbsp;Dr.&nbsp;Raphael Teixeira
 </div>
 
 </section>
-<section id="gerador-de-indução-de-dupla-alimentação-dfig" class="slide level2">
-<h2>Gerador de Indução de Dupla Alimentação (DFIG)</h2>
-<p>Tensões (correntes, fluxos) trifásicas em espaço vetorial:</p>
-<p><span class="math display">\[v_{abc} = \frac{2}{3}\begin{bmatrix} v_a, av_b, a^2v_c \end{bmatrix}\]</span></p>
-<p>onde <span class="math inline">\(a = e^{j2\pi/3}\)</span> é o operador de fase e <span class="math inline">\(i = \sqrt{-1}\)</span>.</p>
-<p>Por Euler, temos que:</p>
-<p><span class="math display">\[a = \cos(120^\circ) + j\sin(120^\circ)\]</span> <span class="math display">\[a^2 = \cos(240^\circ) + j\sin(240^\circ)\]</span></p>
+<section class="slide level2">
+<h2>Circuito RLC:</h2>
+<p>Considere o circuito RLC série alimentado por uma fonte de tensão <span class="math inline">\(v(t)\)</span>, onde a saída de interesse é a tensão no capacitor <span class="math inline">\(v_c(t)\)</span>.</p>
+<p><strong>Componentes:</strong> * <span class="math inline">\(R\)</span>: Resistência (<span class="math inline">\(\Omega\)</span>) * <span class="math inline">\(L\)</span>: Indutância (<span class="math inline">\(H\)</span>) * <span class="math inline">\(C\)</span>: Capacitância (<span class="math inline">\(F\)</span>) * <span class="math inline">\(i(t)\)</span>: Corrente série;</p>
 </section>
-<section id="referencial-estacionário-alphabeta" class="slide level2">
-<h2>Referencial estacionário <span class="math inline">\(\alpha\beta\)</span>:</h2>
-<p>Projetando o vetor <span class="math inline">\(v_{abc}\)</span> no referencial estacionário com eitos <span class="math inline">\(\alpha\)</span> (real) e <span class="math inline">\(\beta\)</span> (imaginário), têm-se:</p>
-<p><span class="math display">\[v_{\alpha\beta} = [T_{abc}]v_{abc}\]</span></p>
-<p>Com a matriz de transformação <span class="math inline">\(T_{abc}\)</span> de Clarke:</p>
-<p><span class="math display">\[v_{\alpha\beta} = \frac{2}{3}\begin{bmatrix} 1 &amp; -\frac{1}{2} &amp; -\frac{1}{2} \\ 0 &amp; \frac{\sqrt{3}}{2} &amp; -\frac{\sqrt{3}}{2} \end{bmatrix}\begin{bmatrix} v_a \\ v_b \\ v_c \end{bmatrix}\]</span></p>
+<section class="slide level2">
+<h2>Aplicação das Leis Físicas</h2>
+<p>Aplicando a <strong>Lei das Tensões de Kirchhoff (LTK)</strong> na malha: <span class="math display">\[v(t) = v_R(t) + v_L(t) + v_C(t)\]</span></p>
+<p>Substituindo pelas relações constitutivas: <span class="math display">\[v(t) = R \cdot i(t) + L \frac{di(t)}{dt} + v_C(t)\]</span> Para o capacitor, a relação entre corrente e tensão é: <span class="math display">\[i(t) = C \frac{dv_C(t)}{dt} \implies \frac{dv_C(t)}{dt} = \frac{1}{C} i(t)\]</span></p>
 </section>
-<section id="referencial-estacionário-alphabeta-1" class="slide level2">
-<h2>Referencial estacionário <span class="math inline">\(\alpha\beta\)</span></h2>
-<p>Invertendo a transformação:</p>
-<p><span class="math display">\[v_{abc} = [T_{abc}]^{-1}v_{\alpha\beta}\]</span></p>
-<p>Com a matriz inversa:</p>
-<p><span class="math display">\[v_{abc} = \begin{bmatrix} 1 &amp; 0 \\ -\frac{1}{2} &amp; \frac{\sqrt{3}}{2} \\ -\frac{1}{2} &amp; -\frac{\sqrt{3}}{2} \end{bmatrix}\begin{bmatrix} v_\alpha \\ v_\beta \end{bmatrix}\]</span></p>
+<section class="slide level2">
+<h2>Definição das Variáveis de Estado</h2>
+<p>Definimos as variáveis de estado como: <span class="math display">\[x_1(t) = v_C(t)\]</span> <span class="math display">\[x_2(t) = i(t)\]</span> Substituindo essas definições nas equações anteriores, obtemos o sistema de equações diferenciais: <span class="math display">\[\dot{x}_1(t) = \frac{1}{C} x_2(t)\]</span> <span class="math display">\[\dot{x}_2(t) = \frac{1}{L} (v(t) - R x_2(t) - x_1(t))\]</span> Essas equações podem ser escritas na forma matricial: <span class="math display">\[\begin{bmatrix} \dot{x}_1(t) \\ \dot{x}_2(t) \end{bmatrix} = \begin{bmatrix} 0 &amp; \frac{1}{C} \\ -\frac{1}{L} &amp; -\frac{R}{L} \end{bmatrix} \begin{bmatrix} x_1(t) \\ x_2(t) \end{bmatrix} + \begin{bmatrix} 0 \\ \frac{1}{L} \end{bmatrix} v(t)\]</span> A saída do sistema é dada por: <span class="math display">\[y(t) = x_1(t)\]</span></p>
 </section>
-<section id="referencial-síncrono---girante-dq" class="slide level2">
-<h2>Referencial síncrono - girante <span class="math inline">\(dq\)</span></h2>
-<p>O referencial síncrono <span class="math inline">\(dq\)</span> gira com frequência <span class="math inline">\(\omega\)</span> e é localizado em <span class="math inline">\(\theta = \omega t\)</span> do referencial estacionário <span class="math inline">\(\alpha\beta\)</span>.</p>
-<p>Projetando o vetor <span class="math inline">\(v_{\alpha\beta}\)</span> no referencial girante com eitos <span class="math inline">\(d\)</span> (direto) e <span class="math inline">\(q\)</span> (quadratura), têm-se:</p>
-<p><span class="math display">\[\begin{bmatrix} v_d \\ v_q \end{bmatrix} = [T_{dq}]v_{\alpha\beta}\]</span> Com a matriz de transformação <span class="math inline">\(T_{dq}\)</span> de Park: <span class="math display">\[\begin{bmatrix} v_d \\ v_q \end{bmatrix} = \begin{bmatrix} \;\;\cos(\theta) &amp; \sin(\theta) \\ -\sin(\theta) &amp; \cos(\theta) \end{bmatrix}\begin{bmatrix} v_\alpha \\ v_\beta \end{bmatrix}\]</span></p>
+<section class="slide level2">
+<h2>Representação em Espaço de Estados</h2>
+<p>A representação em espaço de estados do sistema é dada por: <span class="math display">\[\dot{\mathbf{x}}(t) = A \mathbf{x}(t) + B u(t)\]</span> <span class="math display">\[y(t) = C \mathbf{x}(t) + D u(t)\]</span> Onde: - <span class="math inline">\(\mathbf{x}(t) = \begin{bmatrix} x_1(t) \\ x_2(t) \end{bmatrix}\)</span> é o vetor de estado - <span class="math inline">\(u(t) = v(t)\)</span> é a entrada do sistema - <span class="math inline">\(y(t) = x_1(t)\)</span> é a saída do sistema - <span class="math inline">\(A = \begin{bmatrix} 0 &amp; \frac{1}{C} \\ -\frac{1}{L} &amp; -\frac{R}{L} \end{bmatrix}\)</span> é a matriz de estado - <span class="math inline">\(B = \begin{bmatrix} 0 \\ \frac{1}{L} \end{bmatrix}\)</span> é a matriz de entrada - <span class="math inline">\(C = \begin{bmatrix} 1 &amp; 0 \end{bmatrix}\)</span> é a matriz de saída - <span class="math inline">\(D = 0\)</span> é a matriz de transmissão direta;</p>
 </section>
-<section id="referencial-síncrono---girante-dq-1" class="slide level2">
-<h2>Referencial síncrono - girante <span class="math inline">\(dq\)</span></h2>
-<p>Invertendo a transformação: <span class="math display">\[v_{\alpha\beta} = [T_{dq}]^{-1}\begin{bmatrix} v_d \\ v_q \end{bmatrix}\]</span> Com a matriz inversa: <span class="math display">\[v_{\alpha\beta} = \begin{bmatrix} \;\;\cos(\theta) &amp; -\sin(\theta) \\ \sin(\theta) &amp; \;\;\cos(\theta) \end{bmatrix}\begin{bmatrix} v_d \\ v_q \end{bmatrix}\]</span></p>
-</section>
-<section id="referencial-síncrono---girante-dq-2" class="slide level2">
-<h2>Referencial síncrono - girante <span class="math inline">\(dq\)</span></h2>
-<p>Pode-se também transformar diretamente de <span class="math inline">\(abc\)</span> para <span class="math inline">\(dq\)</span>:</p>
-<p><span class="math display">\[\begin{bmatrix} v_d \\ v_q \end{bmatrix} = [T_{dq}][T_{abc}]v_{abc}\]</span></p>
-<p>Ou de <span class="math inline">\(dq\)</span> para <span class="math inline">\(abc\)</span>:</p>
-<p><span class="math display">\[v_{abc} = [T_{abc}]^{-1}[T_{dq}]^{-1}\begin{bmatrix} v_d \\ v_q \end{bmatrix}\]</span></p>
-</section>
-<section id="referencial-síncrono---girante-dq-3" class="slide level2">
-<h2>Referencial síncrono - girante <span class="math inline">\(dq\)</span></h2>
-<p>Em notação compacta, as transformações podem ser escritas como:</p>
-<p><span class="math display">\[v_{dq} =  v_d + jv_q = v_{\alpha\beta}e^{-j\theta}\]</span></p>
+<section class="slide level2">
+<h2>Conclusão</h2>
+<p>A representação em espaço de estados é uma ferramenta poderosa para modelar e analisar sistemas dinâmicos</p>
 
 
 </section>
@@ -473,7 +451,7 @@ Prof.&nbsp;Dr.&nbsp;Raphael Teixeira
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/raphateixeira\.github\.io\/ControleDFIG\/");
+            var filterRegex = new RegExp("https:\/\/raphateixeira\.github\.io\/ControleEstados\/");
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }
