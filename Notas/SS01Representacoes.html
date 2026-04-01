@@ -1012,8 +1012,31 @@ margin-right: 0; }
 <p>A representação em espaço de estados do sistema é dada por: <span class="math display">\[\dot{\mathbf{x}}(t) = A \mathbf{x}(t) + B u(t)\]</span> <span class="math display">\[y(t) = C \mathbf{x}(t) + D u(t)\]</span> Onde: - <span class="math inline">\(\mathbf{x}(t) = \begin{bmatrix} x_1(t) \\ x_2(t) \end{bmatrix}\)</span> é o vetor de estado - <span class="math inline">\(u(t) = v(t)\)</span> é a entrada do sistema - <span class="math inline">\(y(t) = x_1(t)\)</span> é a saída do sistema - <span class="math inline">\(A = \begin{bmatrix} 0 &amp; \frac{1}{C} \\ -\frac{1}{L} &amp; -\frac{R}{L} \end{bmatrix}\)</span> é a matriz de estado - <span class="math inline">\(B = \begin{bmatrix} 0 \\ \frac{1}{L} \end{bmatrix}\)</span> é a matriz de entrada - <span class="math inline">\(C = \begin{bmatrix} 1 &amp; 0 \end{bmatrix}\)</span> é a matriz de saída - <span class="math inline">\(D = 0\)</span> é a matriz de transmissão direta;</p>
 </section>
 <section class="slide level2">
-<h2>Conclusão</h2>
-#| label: fig-rlc #| fig-cap: “Circuito RLC para extração das equações de estado” #| engine: tikz #| echo: false #| out-width: “100%” #| preamble: | #|
+<h2>Motor de Corrente Contínua (CC)</h2>
+<p>Estados, definimos o vetor de estados <span class="math inline">\(x\)</span>, a entrada <span class="math inline">\(u\)</span> e a saída <span class="math inline">\(y\)</span>:</p>
+<ul>
+<li><strong>Estados:</strong> <span class="math inline">\(x = \begin{bmatrix} i \\ \omega \end{bmatrix}\)</span></li>
+<li><strong>Entrada:</strong> <span class="math inline">\(u = V\)</span> (tensão aplicada)</li>
+<li><strong>Saída:</strong> <span class="math inline">\(y = \omega\)</span></li>
+</ul>
+<p>Isolando as derivadas nas equações fundamentais: <span class="math display">\[\frac{di}{dt} = -\frac{R}{L}i - \frac{K_e}{L}\omega + \frac{1}{L}V\]</span> <span class="math display">\[\frac{d\omega}{dt} = \frac{K_t}{J}i - \frac{B}{J}\omega\]</span></p>
+</section>
+<section class="slide level2">
+<h2>Equação de Estado</h2>
+<p>Organizando as equações lineares na forma matricial <span class="math inline">\(\dot{x} = Ax + Bu\)</span>:</p>
+<p><span class="math display">\[
+\begin{bmatrix} \dot{i} \\ \dot{\omega} \end{bmatrix} =
+\begin{bmatrix}
+-\frac{R}{L} &amp; -\frac{K_e}{L} \\
+\frac{K_t}{J} &amp; -\frac{B}{J}
+\end{bmatrix}
+\begin{bmatrix} i \\ \omega \end{bmatrix} +
+\begin{bmatrix} \frac{1}{L} \\ 0 \end{bmatrix} V
+\]</span></p>
+<p>A equação de saída <span class="math inline">\(y = Cx + Du\)</span> define o que estamos observando no sistema. Se o objetivo é monitorar apenas a velocidade do eixo:</p>
+<p><span class="math display">\[
+y = \begin{bmatrix} 0 &amp; 1 \end{bmatrix} \begin{bmatrix} i \\ \omega \end{bmatrix} + [0]V
+\]</span></p>
 
 
 </section>
