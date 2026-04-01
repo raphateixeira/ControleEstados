@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://raphateixeira.github.io/ControleEstados/Notas/SS00ModelagemEspacoEstados.html</loc>
-    <lastmod>2026-04-01T09:13:37.017Z</lastmod>
+    <loc>https://raphateixeira.github.io/ControleEstados/Notas/SS02ConversaoRepresentacoes.html</loc>
+    <lastmod>2026-04-01T19:24:31.147Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raphateixeira.github.io/ControleEstados/Notas/SS00PlanoEnsino.html</loc>
+    <lastmod>2026-04-01T19:24:31.147Z</lastmod>
   </url>
   <url>
     <loc>https://raphateixeira.github.io/ControleEstados/index.html</loc>
-    <lastmod>2026-04-01T09:13:37.021Z</lastmod>
+    <lastmod>2026-04-01T19:24:31.155Z</lastmod>
   </url>
   <url>
-    <loc>https://raphateixeira.github.io/ControleEstados/Notas/SS01Representacoes.html</loc>
-    <lastmod>2026-04-01T09:13:37.018Z</lastmod>
+    <loc>https://raphateixeira.github.io/ControleEstados/Notas/SS01Modelagem.html</loc>
+    <lastmod>2026-04-01T19:24:31.147Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raphateixeira.github.io/ControleEstados/Notas/SS03AnsliseEstabilidade.html</loc>
+    <lastmod>2026-04-01T19:24:31.147Z</lastmod>
   </url>
 </urlset>
